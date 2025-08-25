@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gradual Large Number</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #111;
+    color: #fff;
+    padding: 50px;
+  }
+  h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+  .number {
+    font-size: 1.8em;
+    color: #00ffcc;
+    word-wrap: break-word;
+    border: 2px solid #00ffcc;
+    padding: 10px;
+    display: inline-block;
+    border-radius: 10px;
+  }
+</style>
+</head>
+<body>
+  <h1>Building up to 10^10^10^100</h1>
+  <div class="number">0</div>
+
+<script>
+let step = 0;
+const sequence = [
+  "0",
+  "10",
+  "10^10",
+  "10^(10^10)",
+  "10^(10^(10^100))"
+];
+
+function updateNumber() {
+  const numEl = document.querySelector('.number');
+  numEl.textContent = sequence[step];
+  
+  if (step < sequence.length - 1) {
+    step++;
+    setTimeout(updateNumber, 1000);
+  } else {
+    numEl.textContent += "  (Reached target)";
+  }
+}
+
+updateNumber();
+</script>
+</body>
+</html>

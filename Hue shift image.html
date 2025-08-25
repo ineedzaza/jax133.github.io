@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hue Shift Image</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: #111;
+    color: #fff;
+    padding: 40px;
+  }
+  input[type="file"], input[type="range"] {
+    margin: 10px;
+  }
+  canvas {
+    margin-top: 20px;
+    max-width: 90%;
+    border: 2px solid #00ffcc;
+  }
+</style>
+</head>
+<body>
+  <h1>Hue Shift Image</h1>
+  <input type="file" id="imageInput" accept="image/*">
+  <br>
+  <label>Hue Shift: <span id="hueValue">0</span>°</label>
+  <input type="range" id="hueRange" min="0" max="360" value="0">
+  <br>
+  <canvas id="canvas"></canvas>
+
+<script>
+const imageInput = document.getElementById('imageInput');
+const hueRange = document.getElementById('hueRange');
+const hueValue = document.getElementById('hueValue');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
+let img = new Image();
+
+imageInput.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = event => {
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+img.onload = () => {
+  canvas.width = img.width;
+  canvas.height = img.height;
+  applyHueShift();
+};
+
+hueRange.addEventListener('input', () => {
+  hueValue.textContent = hueRange.value;
+  applyHueShift();
+});
+
+// Apply hue shift using canvas filters
+function applyHueShift() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.filter = `hue-rotate(${hueRange.value}deg)`;
+  ctx.drawImage(img, 0, 0);
+}
+</script>
+</body>
+</html>

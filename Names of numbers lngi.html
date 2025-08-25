@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extreme Large Number Growth</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; padding: 40px; background: #111; color: #fff; }
+  h1 { font-size: 2em; }
+  .number { font-size: 1.5em; color: #00ffcc; word-wrap: break-word; }
+</style>
+</head>
+<body>
+  <h1>Gradually Growing Huge Number</h1>
+  <p>Current Value:</p>
+  <div class="number">0</div>
+
+<script>
+let depth = 0;
+let maxDepth = 5; // Example: up to 10^10^10^10^10
+let base = 10;
+
+function formatPowerTower(depth) {
+  if (depth === 0) return "0";
+  let tower = "10";
+  for (let i = 1; i < depth; i++) {
+    tower = "10^(" + tower + ")";
+  }
+  return tower;
+}
+
+function updateNumber() {
+  document.querySelector('.number').textContent = formatPowerTower(depth);
+  if (depth < maxDepth) {
+    depth++;
+    setTimeout(updateNumber, 1000); // update every second
+  } else {
+    document.querySelector('.number').textContent += " ... and beyond!";
+  }
+}
+
+updateNumber();
+</script>
+</body>
+</html>

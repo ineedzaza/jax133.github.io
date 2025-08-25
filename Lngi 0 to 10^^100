@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extreme Large Number Growth</title>
+<style>
+  body {
+    font-family: monospace;
+    text-align: center;
+    background: #111;
+    color: #00ffcc;
+    padding: 40px;
+  }
+  h1 { font-size: 1.6em; margin-bottom: 20px; }
+  .number {
+    font-size: 1.2em;
+    border: 2px solid #00ffcc;
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 95%;
+    word-break: break-word;
+  }
+</style>
+</head>
+<body>
+  <h1>Building up to 10^10^10^...^100</h1>
+  <div class="number">0</div>
+
+<script>
+let step = 0;
+const totalSteps = 10; // 10 layers of exponentiation before adding 100
+
+function buildPowerTower(n) {
+  if (n === 0) return "0";
+  let result = "10";
+  for (let i = 1; i < n; i++) {
+    result = "10^(" + result + ")";
+  }
+  return result;
+}
+
+function updateDisplay() {
+  const el = document.querySelector('.number');
+  if (step === 0) {
+    el.textContent = "0";
+  } else if (step <= totalSteps) {
+    el.textContent = buildPowerTower(step);
+  } else {
+    el.textContent = buildPowerTower(totalSteps) + "^100";
+  }
+
+  if (step <= totalSteps) {
+    step++;
+    setTimeout(updateDisplay, 1000);
+  } else if (step === totalSteps + 1) {
+    step++;
+    setTimeout(updateDisplay, 1000);
+  }
+}
+
+updateDisplay();
+</script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Extreme Large Number Progression</title>
+<style>
+  body {
+    font-family: monospace;
+    text-align: center;
+    background: #111;
+    color: #00ffcc;
+    padding: 40px;
+  }
+  h1 { font-size: 1.8em; margin-bottom: 20px; }
+  .number {
+    font-size: 1.4em;
+    border: 2px solid #00ffcc;
+    padding: 15px;
+    border-radius: 10px;
+    display: inline-block;
+    max-width: 90%;
+    word-break: break-word;
+  }
+</style>
+</head>
+<body>
+  <h1>Fast-Growing Symbolic Progression</h1>
+  <div class="number">0</div>
+
+<script>
+const progression = [
+  "0",
+  "{10, 10, 10, 10}",
+  "{10, 10 [2] 2}",
+  "{100, 49 [1 \\ 2] 2}",
+  "{100, 100 [1 [2 ¬ 2] 2] 2}",
+  "s(10, 10 {1,, 1 {1,, 1,, 2} 2} 2)"
+];
+
+let step = 0;
+
+function updateDisplay() {
+  const el = document.querySelector('.number');
+  el.textContent = progression[step];
+  
+  if (step < progression.length - 1) {
+    step++;
+    setTimeout(updateDisplay, 1500);
+  } else {
+    el.textContent += "  (Limit Stage)";
+  }
+}
+
+updateDisplay();
+</script>
+</body>
+</html>

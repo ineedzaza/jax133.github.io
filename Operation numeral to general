@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gradual Power Tower</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; background: #111; color: #fff; padding: 40px; }
+  h1 { font-size: 2em; margin-bottom: 20px; }
+  .number { font-size: 1.5em; color: #00ffcc; word-wrap: break-word; }
+</style>
+</head>
+<body>
+  <h1>Building a Power Tower</h1>
+  <p>Current Value:</p>
+  <div class="number">0</div>
+
+<script>
+const sequence = [10, 10, 10, 10]; // Represents {10, 10, 10, 10}
+let step = 0;
+
+function buildPowerTower(n) {
+  if (n === 0) return "10";
+  let result = "10";
+  for (let i = 1; i < n; i++) {
+    result = "10^(" + result + ")";
+  }
+  return result;
+}
+
+function updateNumber() {
+  const numberElement = document.querySelector('.number');
+  if (step === 0) {
+    numberElement.textContent = "0";
+  } else {
+    numberElement.textContent = buildPowerTower(step);
+  }
+  if (step < sequence.length) {
+    step++;
+    setTimeout(updateNumber, 1000);
+  } else {
+    numberElement.textContent += "  (completed)";
+  }
+}
+
+updateNumber();
+</script>
+</body>
+</html>
